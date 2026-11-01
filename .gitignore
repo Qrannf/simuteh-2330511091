@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Google Colab
+.drive/
+
+# Environment
+.env
+.venv/
+venv/
+
+# Sistem operasi
+.DS_Store
+Thumbs.db
