@@ -37,4 +37,66 @@ Pada kondisi terang, KB menurun dari 6.53 menjadi 5.79.
 
 Pengujian 20 citra daun sehat menunjukkan simpangan baku kanal R meningkat 16.37% pada kondisi terang, sedangkan pada empat kondisi lainnya mengalami penurunan. Oleh karena itu, kondisi terang perlu mendapat perhatian pada pengujian berikutnya.
 
-&nbsp;
+
+## Praktikum P5 – Deteksi Tepi
+
+Praktikum P5 membahas penerapan deteksi tepi pada citra daun teh menggunakan beberapa metode, yaitu Sobel, Prewitt, LoG, dan Canny. Pengujian dilakukan dengan membandingkan hasil deteksi tepi terhadap mask acuan serta mengevaluasi pengaruh kondisi pencahayaan dan praproses.
+
+Tahapan yang dilakukan:
+- Perhitungan gradien Sobel dan Prewitt.
+- Penerapan operator LoG dan Canny.
+- Non-Maximum Suppression dan hysteresis thresholding.
+- Pengujian variasi parameter deteksi tepi.
+- Evaluasi menggunakan precision, recall, dan F1-score.
+
+## Praktikum P6 – Morfologi dan Analisis Bercak
+
+Praktikum P6 membahas segmentasi bercak daun teh menggunakan operasi morfologi, analisis komponen terhubung, pengukuran karakteristik bercak, dan klasifikasi mutu daun.
+
+Tahapan yang dilakukan:
+- Segmentasi awal daun dan bercak.
+- Penerapan erosi, dilasi, opening, dan closing.
+- Pengujian bentuk dan ukuran structuring element.
+- Pengukuran luas, keliling, kebulatan, dan rasio aspek bercak.
+- Penyaringan komponen berdasarkan karakteristik bercak.
+- Evaluasi hasil klasifikasi pada 60 citra sintetis.
+
+### Modul Analisis Bercak
+
+Modul `src/bercak.py` menyediakan fungsi `analisis_daun()` untuk menganalisis citra daun yang telah melalui proses praproses.
+
+Contoh penggunaan:
+
+```python
+from praproses import praproses
+from bercak import analisis_daun
+
+# Memproses citra terlebih dahulu
+img_pra = praproses(img, PARAM)
+
+# Menganalisis bercak
+hasil = analisis_daun(img_pra)
+
+print("Jumlah bercak:", hasil["jumlah_bercak"])
+print("Persen bercak:", hasil["persen_bercak"], "%")
+print("Kelas mutu:", hasil["kelas"])
+```
+
+Hasil analisis meliputi:
+- Mask daun.
+- Mask bercak.
+- Jumlah komponen bercak.
+- Persentase luas bercak.
+- Kelas mutu daun: Sehat, Bercak Ringan, atau Bercak Berat.
+- Informasi ukuran setiap komponen bercak.
+
+### Hasil Evaluasi P6
+
+Pengujian modul dilakukan terhadap 60 citra sintetis dengan hasil:
+- Galat absolut rerata persentase bercak: 0,622.
+- Korelasi persentase prediksi dan acuan: 0,909.
+- Akurasi klasifikasi: 85%.
+- Kondisi pencahayaan dengan akurasi tertinggi: terang (100%).
+- Kondisi pencahayaan dengan akurasi terendah: kontras rendah (67%).
+
+Hasil evaluasi masih memiliki keterbatasan karena parameter batas kelas ditentukan dengan melihat label seluruh dataset. Pengujian lanjutan menggunakan pembagian data latih, validasi, dan uji diperlukan untuk memperoleh evaluasi yang lebih objektif.
